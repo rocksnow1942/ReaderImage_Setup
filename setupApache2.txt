@@ -67,6 +67,8 @@ to restart and check status of apache2
 
 # set up custom 503 pages to serve whenenver firmware is down. 
 (https://serverfault.com/questions/266924/apache-reverse-proxy-error-page-when-proxied-server-is-down)
+
+# add the error page to /var/www/html/myerror.html
 <VirtualHost *:80>
     ProxyPreserveHost On
     ProxyPass /http_errors/ !

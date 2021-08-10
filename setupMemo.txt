@@ -1,5 +1,20 @@
 1. Install raspbian lite 32 bit to drive. 
 [what is the specific version?]
+cat /etc/os-release
+:
+PRETTY_NAME="Raspbian GNU/Linux 10 (buster)"
+NAME="Raspbian GNU/Linux"
+VERSION_ID="10"
+VERSION="10 (buster)"
+VERSION_CODENAME=buster
+ID=raspbian
+ID_LIKE=debian
+HOME_URL="http://www.raspbian.org/"
+SUPPORT_URL="http://www.raspbian.org/RaspbianForums"
+BUG_REPORT_URL="http://www.raspbian.org/RaspbianBugs"
+
+uname -a:
+Linux AMS-QCJ 5.10.52+ #1441 Tue Aug 3 18:08:18 BST 2021 armv6l GNU/Linux
 
 2. Put [ssh] and [wpa_supplicant.conf] in boot drive. 
 
@@ -28,15 +43,15 @@ Password for 'https://AptitudeCodeBase@github.com': [user github token, gph_ereo
 
 >>> enter password.
 
-[optional] 
-
+[optional: select which branch to install.]
 cd covid_sensor
 sudo git checkout hui-branch
+
 
 7. Run setup script:
 git clone https://github.com/rocksnow1942/ReaderImage_Setup.git
 cd ReaderImage_Setup
-sudo python3 ~/covid_sensor/app/setup/install.py
+sudo python3 install.py
 
 Pi will be renamed to new name. 
 Write down the name to be able to access Pi.
@@ -47,36 +62,12 @@ sudo raspi-config
 
 Note: There are some safety issues with password etc.
 
+9. REBOOT
+sudo reboot
 
 
+10. Install apache2; refer to the sequpApache2.txt
 
-Brief Steps:
-
-
-====================================================================================
-Brief Steps:
-
-=======
-Brief Steps:
-
-
-tl sp
-OR
-ssh pi@raspberrypi.local -o "UserKnownHostsFile /dev/null" 
-
-password: raspberry
-
-sudo raspi-config
-Change password to ams
-
-sudo apt install git
-
-sudo git config --global credential.helper store 
-sudo git clone https://github.com/AptitudeCodebase/covid_sensor.git
-
-cd covid_sensor
-sudo git checkout hui-branch
-sudo python3 ~/covid_sensor/app/setup/install.py
 
 
 To setup Jupyter notebook:

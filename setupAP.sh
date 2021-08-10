@@ -31,7 +31,7 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
 network={
-    ssid="Aptitude_Wireless"
+    ssid="aptitude"
     psk="AMS@125Cremona"
 }
 EOF
