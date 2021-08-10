@@ -110,7 +110,7 @@ def generate_default_reader_info():
 
 def createFolder(folder):
     "create path if not exist"
-    _folder = Path(__file__).parent.parent/ folder
+    _folder = Path("/covid_sensor") / folder
     if not os.path.exists(_folder):
         os.mkdir(_folder) 
     return _folder
@@ -224,7 +224,7 @@ def pippkg():
 @menuDecorator('Update system',99)
 def updatesys():
     run("sudo apt update")
-    run("sudo apt -y upgrade")
+    # run("sudo apt -y upgrade")
     return ["Updated system."]
     
 @menuDecorator('Install AccessPoint/Client Mode',6)
@@ -290,10 +290,10 @@ def changeHostName(newhostname=SYSTEM_ID):
 @menuDecorator('Setup device app auto run',3)
 def deviceApp():
     # enable supervisor 
-    folder = Path(__file__).absolute().parent.parent.parent
+    
     supervisorconf = f"""[program:deviceApp]
-command=sudo /usr/bin/python3 {folder / 'app.py'} -supervisor
-directory={folder}
+command=sudo /usr/bin/python3 '/covid_sensor/app.py' -supervisor
+directory=/covid_sensor
 user=root
 autostart=true
 autorestart=true
@@ -387,17 +387,16 @@ def renameSystem():
     return [f'Renamed system to {newname}']        
 
 @menuDecorator("Install alias to bashrc",11)
-def installAlias():
-    folder = Path(__file__).absolute().parent.parent.parent
-    log = folder/'app/logs/COVID_system.log'
-    setup = folder/'app/setup/install.py'
-    app = folder/'app.py'
+def installAlias():    
+    log = '/covid_sensor/logs/COVID_system.log'
+    setup = Path(__file__).absolute()
+    app = '/covid_sensor/app.py'
     alias = [
-        'alias tl="echo apon,apoff,log,cl,ins,app,gp,startApp,stopApp"',
+        'alias tl="echo apon,apoff,log,clearlog,ins,app,gp,startApp,stopApp"',
         'alias apon="sudo systemctl start wpa_supplicant@ap0.service"',
         'alias apoff="sudo systemctl start wpa_supplicant@wlan0.service"',
         f'alias log="tail -f -n 100 {log}"',
-        f'alias cl="sudo rm {log}"',
+        f'alias clearlog="sudo rm {log}"',
         f'alias ins="sudo python3 {setup}"',
         f'alias app="sudo python3 {app}"',
         f'alias gp="sudo git pull"',
@@ -422,13 +421,12 @@ def deleteFilesInFolder(folder):
 
 @menuDecorator("Clean up system for clone SD card",12)
 def cleanupSys():
-    # remove 
-    folder = Path(__file__).absolute().parent.parent.parent
-    log = folder/'app/logs/COVID_system.log'
+    # remove     
+    log = '/covid_sensor/logs/COVID_system.log'
     deleteFileIfExist(log)
-    db = folder / 'app/data_storage/measurementResults.sqlite'
+    db = '/covid_sensor/data_storage/measurementResults.sqlite'
     deleteFileIfExist(db)
-    files = deleteFilesInFolder(folder/'app/settings')
+    files = deleteFilesInFolder('/covid_sensor/settings')
     idfile = '/boot/device_id.json'
     deleteFileIfExist(idfile)
     return ["Removed following files:",str(log),str(db),idfile] + [str(f) for f in files]
@@ -442,20 +440,6 @@ def deleteFilesInFolder(folder):
     for file in files:
         deleteFileIfExist(os.path.join(folder,file))
     return files
-
-@menuDecorator("Clean up system for clone SD card",12)
-def cleanupSys():
-    # remove 
-    folder = Path(__file__).absolute().parent.parent.parent
-    log = folder/'app/logs/COVID_system.log'
-    deleteFileIfExist(log)
-    db = folder / 'app/data_storage/measurementResults.sqlite'
-    deleteFileIfExist(db)
-    files = deleteFilesInFolder(folder/'app/settings')
-    idfile = '/boot/device_id.json'
-    deleteFileIfExist(idfile)
-    return ["Removed following files:",str(log),str(db),idfile] + [str(f) for f in files]
-
 
 # from install_pkg import run,getSupervisorFile,editFile
 def main():    
