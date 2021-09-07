@@ -18,6 +18,10 @@ Linux AMS-QCJ 5.10.52+ #1441 Tue Aug 3 18:08:18 BST 2021 armv6l GNU/Linux
 
 2. Put [ssh] and [wpa_supplicant.conf] in boot drive. 
 
+
+## to reconnect to wifi in the new settings:
+## sudo wpa_cli -i wlan0 reconfigure
+
 3. RPi connected with pi@raspberrypi.local, pwd: raspberry 
 [Look up the ip address might be easier in our network setup, as there might be more than 1 raspberrypi device]
 
