@@ -326,7 +326,9 @@ def serial():
     editFile("/boot/config.txt",'r',appendIfNotExist("\nenable_uart=1"))
     # enable i2c and spi for raspberry pi.
     editFile("/boot/config.txt",'r',appendIfNotExist("\ndtparam=i2c_arm=on"))
-    editFile("/boot/config.txt",'r',appendIfNotExist("\ndtparam=spi=on"))
+
+    # on the PCB version 2.6, we switched to I2C temperature sensor, no longer need SPI.
+    # editFile("/boot/config.txt",'r',appendIfNotExist("\ndtparam=spi=on"))
 
     # remove console=serial0,115200 from /boot/cmdline.txt
     editFile("/boot/cmdline.txt",'r',replaceLine('console=serial0,115200 ',''))
