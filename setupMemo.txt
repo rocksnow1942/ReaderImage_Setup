@@ -116,7 +116,12 @@ if /boot/device_id.json exists, it will copy the device informaiton from there.
 then the hostname and accesspoint name of the device will be updated automatically.
 Also remove wifi password in /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 
+About shrinking partition:
 
+https://github.com/Drewsif/PiShrink
+
+About making image directly:
+https://opensource.com/article/21/7/custom-raspberry-pi-image
 
 
 
