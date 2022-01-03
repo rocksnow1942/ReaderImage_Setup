@@ -41,6 +41,9 @@ systemctl disable wpa_supplicant.service
 systemctl enable wpa_supplicant@wlan0.service
 
 # generate random freq
+# On RPi Zero, the frequenc lowest I can get to is 2412 Hz, 
+# the highest can go to is 2462 MHz
+# the frequencies are tested on the RPi zero W
 Freq=$(($(($(($RANDOM%11))*5))+2412))
 # setup wpa_supplicant as AP with ap0
 cat > /etc/wpa_supplicant/wpa_supplicant-ap0.conf <<EOF
