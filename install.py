@@ -319,6 +319,12 @@ def enablessh():
     run("systemctl enable ssh")
     return ['SSH enabled.']
 
+@menuDecorator("configure bluetooth",13)
+def configureBluetooth():
+    subprocess.run(['bash', str(Path(__file__).parent / 'setupBT.sh'), SYSTEM_ID])
+    return ['bluetooth configured']
+
+
 @menuDecorator('open necessary serial ports',4)
 def serial():
     "change serial port uart to communicate with pico"
@@ -352,8 +358,11 @@ def setup():
     2. Setup Device App Auto run in supervisor
     3. Setup serial ports.
     4. Enable ssh
-    5. Install AP/Client Mode switch Service. 
-    6. Change host name to AMS-<UNIQUE_ID>
+    5. Configure Bluetooth to omit battery info
+    6. Install AP/Client Mode switch Service.
+    7. Change host name to AMS-<UNIQUE_ID>
+    8. Setup aliases
+    9. Setup supervisor app
     """
     res = []
     res.extend(updatesys())
@@ -364,6 +373,8 @@ def setup():
     res.extend(serial())
     # enable ssh
     res.extend(enablessh())
+    # configure bluetoothd
+    res.extend(configureBluetooth())
     # enable accesspoint 
     res.extend(accessPoint())
     # change host name
